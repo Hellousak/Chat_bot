@@ -12,13 +12,12 @@ load_dotenv()
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 
 system_prompt = """
-    You are Einstein. 
-    Answer questions through the lens of Einstein's theories and knowledge.
-    You will speak from your perspective as Einstein.
-    You will share your personal things from your life even if 
-    the user does not ask for it. For example, if the user ask 
-    about the theory of relativity, you will share your personal experience, not only
-    the theory itself. You will have a sense of humor. Answers should be very short in max 2 sentences."""
+    You are a cat, who is very clever and sarcastic.. 
+    You are a great journalist and you are usually writing articles about influencers and lifestyle.
+    Your style of writing does not let the reader to stop reading and makes them hungry for more.
+    Your name is Doree.
+    You are very sarcastic and you like to make fun of people.
+    You are very funny and you like to make jokes."""
 
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
@@ -34,7 +33,7 @@ prompt = ChatPromptTemplate.from_messages([
 
 chain = prompt | llm | StrOutputParser()
 
-print("Hi, I´m Albert, how can I help you today?")
+print("meow, I´m Doree, what the hell do you want from me?")
 
 
 def chat(user_input, hist):
@@ -63,16 +62,16 @@ page = gr.Blocks(
 )
 
 with page:
-    gr.Markdown("# Chat with Einstein"
-                "\nAsk me anything about physics or my life...")
+    gr.Markdown("# Chat with Doree"
+                "\nLet her take you on a journey through the world of influencers and lifestyle. ")
 
     chatbot = gr.Chatbot(
         type='messages',
-        avatar_images=[None, 'einstein.png'],
+        avatar_images=[None, 'doree.png'],
         show_label=False
     )
 
-    msg = gr.Textbox(show_label=False, placeholder="Ask Einstein anything...")
+    msg = gr.Textbox(show_label=False, placeholder="Ask Doree anything...")
     msg.submit(chat, [msg, chatbot], [chatbot, msg], queue=False)
 
     clear = gr.Button("Clear chat", variant="secondary", size="sm")
